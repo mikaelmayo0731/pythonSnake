@@ -38,8 +38,10 @@ def collision():
 
 def draw_snake():
     global snake_list
-    for x in snake_list:
-        pygame.draw.rect(screen, (0, 100, 0), x)
+    new_snakes = snake_list[1:len(snake_list)]
+    pygame.draw.rect(screen, (0, 100, 0), snake)
+    for x in new_snakes:
+        pygame.draw.rect(screen, (0, 80, 0), x)
 
 
 def move_snake():
@@ -91,7 +93,7 @@ while run:
     movement()
     collision()
 
-    screen.fill((0, 0, 0))
+    screen.fill((20, 20, 20))
     pygame.draw.rect(screen, (200, 200, 200), ball)
     draw_snake()
 
