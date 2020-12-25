@@ -51,8 +51,8 @@ def move_snake():
         snake_list[x-1].y = snake_list[x-2].y
 
 
-screen_width = 600
-screen_height = 500
+screen_width = 500
+screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("PySnake")
 clock = pygame.time.Clock()
@@ -101,4 +101,4 @@ while run:
     draw_snake()
 
     pygame.display.flip()
-    clock.tick(6)
+    clock.tick(10)
