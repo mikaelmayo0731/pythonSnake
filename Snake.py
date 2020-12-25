@@ -64,6 +64,7 @@ ball_location_y = math.ceil((random.randint(0, screen_height)-10) / 10) * 10
 ball = pygame.Rect(ball_location_x, ball_location_y, 10, 10)
 
 direction = 1
+paused = -1
 
 run = True
 while run:
@@ -72,6 +73,8 @@ while run:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                paused *= -1
             if event.key == pygame.K_UP:
                 if direction != 2:
                     direction = 1
@@ -85,13 +88,13 @@ while run:
                 if direction != 3:
                     direction = 4
 
-    if len(snake_list) > 1:
-        move_snake()
-
-    snake_pos_x = snake_list[-1].x
-    snake_pos_y = snake_list[-1].y
-    movement()
-    collision()
+    if paused < 0:
+        if len(snake_list) > 1:
+            move_snake()
+        snake_pos_x = snake_list[-1].x
+        snake_pos_y = snake_list[-1].y
+        movement()
+        collision()
 
     screen.fill((20, 20, 20))
     pygame.draw.rect(screen, (200, 200, 200), ball)
