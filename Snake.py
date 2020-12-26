@@ -22,6 +22,7 @@ def collision():
         ball.y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
         new_snake = pygame.Rect(snake_pos_x, snake_pos_y, 10, 10)
         snake_list.append(new_snake)
+        pygame.mixer.Sound.play(point_sound)
 
     if (snake.x >= screen_width) or (snake.x < 0) or (snake.y >= screen_height) or (snake.y < 0):
         pygame.quit()
@@ -51,6 +52,8 @@ def move_snake():
         snake_list[x-1].y = snake_list[x-2].y
 
 
+pygame.init()
+
 screen_width = 500
 screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -66,6 +69,9 @@ ball = pygame.Rect(ball_location_x, ball_location_y, 10, 10)
 direction = random.randint(1, 4)
 paused = -1
 
+point_sound = pygame.mixer.Sound("point.wav")
+pause_sound = pygame.mixer.Sound("pause.ogg")
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -75,6 +81,7 @@ while run:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 paused *= -1
+                pygame.mixer.Sound.play(pause_sound)
             if event.key == pygame.K_UP:
                 if direction != 2:
                     direction = 1
