@@ -18,8 +18,8 @@ def movement():
 def collision():
     global snake_pos_x, snake_pos_y, snake_list
     if ball.colliderect(snake):
-        ball.x = math.ceil((random.randint(0, screen_width)-10) / 10) * 10
-        ball.y = math.ceil((random.randint(0, screen_height)-10) / 10) * 10
+        ball.x = math.ceil((random.randint(0, screen_width - 10)) / 10) * 10
+        ball.y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
         new_snake = pygame.Rect(snake_pos_x, snake_pos_y, 10, 10)
         snake_list.append(new_snake)
 
@@ -59,11 +59,11 @@ clock = pygame.time.Clock()
 
 snake = pygame.Rect(screen_width / 2 - 10, screen_height / 2 - 10, 10, 10)
 snake_list = [snake]
-ball_location_x = math.ceil((random.randint(0, screen_width)-10) / 10) * 10
-ball_location_y = math.ceil((random.randint(0, screen_height)-10) / 10) * 10
+ball_location_x = math.ceil((random.randint(0, screen_width - 10)) / 10) * 10
+ball_location_y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
 ball = pygame.Rect(ball_location_x, ball_location_y, 10, 10)
 
-direction = 1
+direction = random.randint(1, 4)
 paused = -1
 
 run = True
