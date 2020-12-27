@@ -30,6 +30,7 @@ def collision():
         snake.x = screen_width / 2 - 10
         snake.y = screen_height / 2 - 10
         snake_list = [snake]
+        pygame.mixer.Sound.play(game_over_sound)
 
     new_snakes = snake_list[1:len(snake_list)]
     for x in new_snakes:
@@ -40,6 +41,7 @@ def collision():
             snake.x = screen_width / 2 - 10
             snake.y = screen_height / 2 - 10
             snake_list = [snake]
+            pygame.mixer.Sound.play(game_over_sound)
 
 
 def draw_snake():
@@ -76,6 +78,7 @@ paused = -1
 
 point_sound = pygame.mixer.Sound("point.wav")
 pause_sound = pygame.mixer.Sound("pause.ogg")
+game_over_sound = pygame.mixer.Sound("gameOver.ogg")
 
 score = 0
 game_font = pygame.font.Font("freesansbold.ttf", 16)
