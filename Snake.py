@@ -26,16 +26,20 @@ def collision():
         pygame.mixer.Sound.play(point_sound)
 
     if (snake.x >= screen_width) or (snake.x < 0) or (snake.y >= screen_height) or (snake.y < 0):
-        pygame.quit()
-        sys.exit()
+        score = 0
+        snake.x = screen_width / 2 - 10
+        snake.y = screen_height / 2 - 10
+        snake_list = [snake]
 
     new_snakes = snake_list[1:len(snake_list)]
     for x in new_snakes:
         if len(new_snakes) <= 1:
             break
         elif x.x == snake.x and x.y == snake.y:
-            pygame.quit()
-            sys.exit()
+            score = 0
+            snake.x = screen_width / 2 - 10
+            snake.y = screen_height / 2 - 10
+            snake_list = [snake]
 
 
 def draw_snake():
