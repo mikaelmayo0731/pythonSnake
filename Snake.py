@@ -79,6 +79,7 @@ paused = -1
 point_sound = pygame.mixer.Sound("point.wav")
 pause_sound = pygame.mixer.Sound("pause.ogg")
 game_over_sound = pygame.mixer.Sound("gameOver.ogg")
+movement_sound = pygame.mixer.Sound("movement.ogg")
 
 score = 0
 game_font = pygame.font.Font("freesansbold.ttf", 16)
@@ -96,15 +97,19 @@ while run:
             if event.key == pygame.K_UP:
                 if direction != 2:
                     direction = 1
+                    pygame.mixer.Sound.play(movement_sound)
             if event.key == pygame.K_DOWN:
                 if direction != 1:
                     direction = 2
+                    pygame.mixer.Sound.play(movement_sound)
             if event.key == pygame.K_LEFT:
                 if direction != 4:
                     direction = 3
+                    pygame.mixer.Sound.play(movement_sound)
             if event.key == pygame.K_RIGHT:
                 if direction != 3:
                     direction = 4
+                    pygame.mixer.Sound.play(movement_sound)
 
     if paused < 0:
         if len(snake_list) > 1:
@@ -115,7 +120,7 @@ while run:
         collision()
 
     screen.fill((20, 20, 20))
-    pygame.draw.rect(screen, (200, 200, 200), ball)
+    pygame.draw.ellipse(screen, (200, 200, 200), ball)
     if paused > 0:
         score_text = game_font.render(f"Score: {score}", False, (200, 200, 200))
         screen.blit(score_text, (10, 10))
