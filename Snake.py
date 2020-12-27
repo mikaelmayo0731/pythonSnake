@@ -1,33 +1,32 @@
 import pygame
 import sys
 import random
-import math
 
 
 def movement():
     if direction == 1:
-        snake.y -= 10
+        snake.y -= movement_speed
     if direction == 2:
-        snake.y += 10
+        snake.y += movement_speed
     if direction == 3:
-        snake.x -= 10
+        snake.x -= movement_speed
     if direction == 4:
-        snake.x += 10
+        snake.x += movement_speed
 
 
 def collision():
     global snake_pos_x, snake_pos_y, snake_list, score
     if ball.colliderect(snake):
-        ball.x = math.ceil((random.randint(0, screen_width - 10)) / 10) * 10
-        ball.y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
-        new_snake = pygame.Rect(snake_pos_x, snake_pos_y, 10, 10)
+        ball.x = random.choice(x_coordinates)
+        ball.y = random.choice(y_coordinates)
+        new_snake = pygame.Rect(snake_pos_x, snake_pos_y, 20, 20)
         snake_list.append(new_snake)
         score += 1
         pygame.mixer.Sound.play(point_sound)
 
     if (snake.x >= screen_width) or (snake.x < 0) or (snake.y >= screen_height) or (snake.y < 0):
         score = 0
-        snake.x = screen_width / 2 - 10
+        snake.x = screen_width / 2
         snake.y = screen_height / 2 - 10
         snake_list = [snake]
         pygame.mixer.Sound.play(game_over_sound)
@@ -38,7 +37,7 @@ def collision():
             break
         elif x.x == snake.x and x.y == snake.y:
             score = 0
-            snake.x = screen_width / 2 - 10
+            snake.x = screen_width / 2
             snake.y = screen_height / 2 - 10
             snake_list = [snake]
             pygame.mixer.Sound.play(game_over_sound)
@@ -61,17 +60,20 @@ def move_snake():
 
 pygame.init()
 
-screen_width = 500
-screen_height = 400
+screen_width = 600
+screen_height = 500
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("PySnake")
 clock = pygame.time.Clock()
 
-snake = pygame.Rect(screen_width / 2 - 10, screen_height / 2 - 10, 10, 10)
+snake = pygame.Rect(screen_width / 2, screen_height / 2 - 10, 20, 20)
 snake_list = [snake]
-ball_location_x = math.ceil((random.randint(0, screen_width - 10)) / 10) * 10
-ball_location_y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
-ball = pygame.Rect(ball_location_x, ball_location_y, 10, 10)
+x_coordinates = [x for x in range(0, screen_width - 20, 20)]
+y_coordinates = [y for y in range(0, screen_height - 20, 20)]
+ball_location_x = random.choice(x_coordinates)
+ball_location_y = random.choice(y_coordinates)
+ball = pygame.Rect(ball_location_x, ball_location_y, 20, 20)
+movement_speed = 20
 
 direction = random.randint(1, 4)
 paused = -1
@@ -120,11 +122,11 @@ while run:
         collision()
 
     screen.fill((20, 20, 20))
-    pygame.draw.ellipse(screen, (200, 200, 200), ball)
     if paused > 0:
         score_text = game_font.render(f"Score: {score}", False, (200, 200, 200))
         screen.blit(score_text, (10, 10))
     draw_snake()
+    pygame.draw.ellipse(screen, (200, 200, 200), ball)
 
     pygame.display.flip()
     clock.tick(10)
