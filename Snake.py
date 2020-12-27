@@ -16,12 +16,13 @@ def movement():
 
 
 def collision():
-    global snake_pos_x, snake_pos_y, snake_list
+    global snake_pos_x, snake_pos_y, snake_list, score
     if ball.colliderect(snake):
         ball.x = math.ceil((random.randint(0, screen_width - 10)) / 10) * 10
         ball.y = math.ceil((random.randint(0, screen_height - 10)) / 10) * 10
         new_snake = pygame.Rect(snake_pos_x, snake_pos_y, 10, 10)
         snake_list.append(new_snake)
+        score += 1
         pygame.mixer.Sound.play(point_sound)
 
     if (snake.x >= screen_width) or (snake.x < 0) or (snake.y >= screen_height) or (snake.y < 0):
@@ -72,6 +73,9 @@ paused = -1
 point_sound = pygame.mixer.Sound("point.wav")
 pause_sound = pygame.mixer.Sound("pause.ogg")
 
+score = 0
+game_font = pygame.font.Font("freesansbold.ttf", 16)
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -105,6 +109,9 @@ while run:
 
     screen.fill((20, 20, 20))
     pygame.draw.rect(screen, (200, 200, 200), ball)
+    if paused > 0:
+        score_text = game_font.render(f"Score: {score}", False, (200, 200, 200))
+        screen.blit(score_text, (10, 10))
     draw_snake()
 
     pygame.display.flip()
