@@ -31,9 +31,8 @@ def collision():
         snake_list = [snake]
         pygame.mixer.Sound.play(game_over_sound)
 
-    new_snakes = snake_list[1:len(snake_list)]
-    for x in new_snakes:
-        if len(new_snakes) <= 1:
+    for x in snake_list[1:len(snake_list)]:
+        if len(snake_list) <= 1:
             break
         elif x.x == snake.x and x.y == snake.y:
             score = 0
@@ -46,9 +45,9 @@ def collision():
 def draw_snake():
     global snake_list
     new_snakes = snake_list[1:len(snake_list)]
-    pygame.draw.rect(screen, (0, 100, 0), snake)
+    pygame.draw.rect(screen, (120, 0, 140), snake)
     for x in new_snakes:
-        pygame.draw.rect(screen, (0, 80, 0), x)
+        pygame.draw.rect(screen, (100, 0, 120), x)
 
 
 def move_snake():
